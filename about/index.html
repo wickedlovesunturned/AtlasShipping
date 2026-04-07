@@ -1,0 +1,587 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>About Us - Atlas Shipping</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --red: #eb2121;
+    --red-dark: #c01a1a;
+    --red-light: #fdf0f0;
+    --red-mid: #f5d0d0;
+    --charcoal: #1c1c1c;
+    --ink: #2e2e2e;
+    --slate: #5a5a5a;
+    --mist: #f7f5f2;
+    --warm-white: #fdfcfa;
+    --border: #e8e4df;
+    --font-sans: 'DM Sans', sans-serif;
+    --font-serif: 'DM Serif Display', serif;
+  }
+
+  html { scroll-behavior: smooth; }
+  body { font-family: var(--font-sans); background: var(--warm-white); color: var(--ink); overflow-x: hidden; }
+
+  /* NAV */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    background: rgba(253,252,250,0.92);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+    padding: 0 2rem; height: 68px;
+    display: flex; align-items: center; justify-content: space-between;
+  }
+
+  .nav-logo { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+
+  .nav-logo-mark {
+    width: 36px; height: 36px;
+    background: var(--red); border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+  }
+
+  .nav-logo-mark svg { width: 20px; height: 20px; fill: white; }
+
+  .nav-logo-text {
+    font-family: var(--font-serif); font-size: 1.25rem;
+    color: var(--charcoal); letter-spacing: -0.01em;
+  }
+
+  .nav-links { display: flex; align-items: center; gap: 2rem; list-style: none; }
+
+  .nav-links a {
+    text-decoration: none; font-size: 0.9rem; font-weight: 500;
+    color: var(--slate); transition: color 0.2s;
+  }
+
+  .nav-links a:hover { color: var(--charcoal); }
+  .nav-links a.active { color: var(--red); }
+
+  .nav-cta {
+    background: var(--red); color: white !important;
+    padding: 0.5rem 1.25rem; border-radius: 6px;
+    transition: background 0.2s !important;
+  }
+
+  .nav-cta:hover { background: var(--red-dark) !important; color: white !important; }
+
+  /* PAGE HEADER */
+  .page-header {
+    padding-top: 68px;
+    background: var(--charcoal);
+    padding-bottom: 5rem;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .page-header-bg {
+    position: absolute; inset: 0;
+    background: repeating-linear-gradient(
+      -45deg, transparent, transparent 30px,
+      rgba(235,33,33,0.05) 30px, rgba(235,33,33,0.05) 31px
+    );
+  }
+
+  .page-header-inner {
+    position: relative; z-index: 1;
+    max-width: 800px;
+    padding: 5rem 4rem 0;
+  }
+
+  .page-header .label {
+    font-size: 0.78rem; font-weight: 600; letter-spacing: 0.1em;
+    text-transform: uppercase; color: #f47272; margin-bottom: 1rem;
+  }
+
+  .page-header h1 {
+    font-family: var(--font-serif);
+    font-size: clamp(2.5rem, 5vw, 3.75rem);
+    line-height: 1.1; color: white;
+    letter-spacing: -0.02em;
+    margin-bottom: 1.25rem;
+  }
+
+  .page-header h1 em { font-style: italic; color: #f47272; }
+
+  .page-header p {
+    font-size: 1.05rem; line-height: 1.75;
+    color: rgba(255,255,255,0.65); max-width: 560px;
+  }
+
+  .section { padding: 6rem 4rem; }
+
+  .section-label {
+    font-size: 0.78rem; font-weight: 600; letter-spacing: 0.1em;
+    text-transform: uppercase; color: var(--red); margin-bottom: 1rem;
+  }
+
+  .section-heading {
+    font-family: var(--font-serif);
+    font-size: clamp(2rem, 3vw, 2.75rem);
+    line-height: 1.15; color: var(--charcoal);
+    letter-spacing: -0.02em; margin-bottom: 1.25rem;
+  }
+
+  .section-heading em { font-style: italic; color: var(--red); }
+
+  /* STORY */
+  .story-section {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 5rem; align-items: center;
+    padding: 6rem 4rem;
+    background: var(--warm-white);
+  }
+
+  .story-text p {
+    font-size: 1rem; line-height: 1.85; color: var(--slate);
+    margin-bottom: 1.25rem;
+  }
+
+  .story-visual {
+    background: var(--mist);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 3rem;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .story-visual::before {
+    content: '';
+    position: absolute; top: 0; right: 0;
+    width: 120px; height: 120px;
+    background: var(--red-light);
+    border-radius: 0 20px 0 120px;
+  }
+
+  .story-quote {
+    font-family: var(--font-serif);
+    font-size: 1.5rem;
+    font-style: italic;
+    color: var(--charcoal);
+    line-height: 1.4;
+    position: relative; z-index: 1;
+    margin-bottom: 1.5rem;
+  }
+
+  .story-quote::before {
+    content: '\201C';
+    font-size: 5rem; line-height: 0;
+    color: var(--red); opacity: 0.2;
+    display: block; margin-bottom: 1rem;
+  }
+
+  .story-tag {
+    display: inline-block;
+    background: var(--charcoal);
+    color: white;
+    font-size: 0.85rem; font-weight: 500;
+    padding: 0.5rem 1rem;
+    border-radius: 100px;
+    letter-spacing: 0.01em;
+  }
+
+  /* MISSION SECTION */
+  .mission-section { background: var(--mist); }
+
+  .mission-split {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 5rem; align-items: start;
+  }
+
+  .mission-block { margin-bottom: 3rem; }
+
+  .mission-block:last-child { margin-bottom: 0; }
+
+  .mission-icon {
+    width: 44px; height: 44px;
+    background: var(--red-light);
+    border: 1px solid var(--red-mid);
+    border-radius: 12px;
+    display: flex; align-items: center; justify-content: center;
+    margin-bottom: 1rem;
+  }
+
+  .mission-icon svg { width: 22px; height: 22px; fill: var(--red); }
+
+  .mission-block h3 {
+    font-family: var(--font-serif);
+    font-size: 1.4rem; color: var(--charcoal);
+    margin-bottom: 0.6rem;
+  }
+
+  .mission-block p {
+    font-size: 0.93rem; line-height: 1.75; color: var(--slate);
+  }
+
+  /* VALUES */
+  .values-section { background: var(--charcoal); }
+
+  .values-section .section-label { color: #f5a0a0; }
+  .values-section .section-heading { color: white; }
+  .values-section .section-heading em { color: #f47272; }
+
+  .values-grid {
+    display: grid; grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem; margin-top: 3rem;
+  }
+
+  .value-card {
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 16px; padding: 1.75rem;
+    transition: background 0.25s;
+  }
+
+  .value-card:hover { background: rgba(255,255,255,0.08); }
+
+  .value-num {
+    font-family: var(--font-serif);
+    font-size: 2.5rem; color: var(--red);
+    opacity: 0.4; line-height: 1;
+    margin-bottom: 0.75rem;
+  }
+
+  .value-card h3 {
+    font-family: var(--font-serif);
+    font-size: 1.2rem; color: white; margin-bottom: 0.6rem;
+  }
+
+  .value-card p {
+    font-size: 0.88rem; line-height: 1.7;
+    color: rgba(255,255,255,0.55);
+  }
+
+  /* FLEET SECTION */
+  .fleet-section { background: var(--warm-white); }
+
+  .fleet-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem; margin-top: 3rem;
+  }
+
+  .fleet-card {
+    background: var(--mist);
+    border: 1px solid var(--border);
+    border-radius: 16px; padding: 1.75rem;
+    transition: transform 0.25s;
+  }
+
+  .fleet-card:hover { transform: translateY(-4px); }
+
+  .fleet-card svg { width: 40px; height: 40px; fill: var(--red); margin-bottom: 1rem; }
+
+  .fleet-card h3 {
+    font-weight: 500; font-size: 1rem;
+    color: var(--charcoal); margin-bottom: 0.4rem;
+  }
+
+  .fleet-card p { font-size: 0.88rem; line-height: 1.65; color: var(--slate); }
+
+  /* PARTNER CALLOUT */
+  .partner-callout {
+    background: var(--red-light);
+    border: 1px solid var(--red-mid);
+    border-radius: 20px;
+    padding: 3rem;
+    margin: 0 4rem 4rem;
+    display: grid; grid-template-columns: auto 1fr;
+    gap: 2.5rem; align-items: center;
+  }
+
+  .partner-icon {
+    width: 80px; height: 80px;
+    background: var(--red);
+    border-radius: 16px;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+  }
+
+  .partner-icon svg { width: 40px; height: 40px; fill: white; }
+
+  .partner-callout h3 {
+    font-family: var(--font-serif);
+    font-size: 1.5rem; color: var(--charcoal); margin-bottom: 0.5rem;
+  }
+
+  .partner-callout p { font-size: 0.93rem; line-height: 1.7; color: var(--slate); }
+
+  .btn-primary {
+    background: var(--red); color: white;
+    text-decoration: none; padding: 0.85rem 1.75rem;
+    border-radius: 8px; font-weight: 500; font-size: 0.95rem;
+    transition: background 0.2s, transform 0.15s;
+    display: inline-block; margin-top: 1rem;
+  }
+
+  .btn-primary:hover { background: var(--red-dark); transform: translateY(-1px); }
+
+  /* FOOTER */
+  footer {
+    background: var(--charcoal);
+    padding: 4rem 4rem 2rem;
+    color: rgba(255,255,255,0.5);
+  }
+
+  .footer-top {
+    display: grid; grid-template-columns: 2fr 1fr 1fr 1fr;
+    gap: 3rem; padding-bottom: 3rem;
+    border-bottom: 1px solid rgba(255,255,255,0.1); margin-bottom: 2rem;
+  }
+
+  .footer-brand p {
+    font-size: 0.88rem; line-height: 1.7; margin-top: 1rem;
+    max-width: 280px; color: rgba(255,255,255,0.4);
+  }
+
+  .footer-brand .nav-logo-text { color: white; }
+
+  .footer-col h5 {
+    font-size: 0.78rem; letter-spacing: 0.08em;
+    text-transform: uppercase; font-weight: 600;
+    color: rgba(255,255,255,0.5); margin-bottom: 1rem;
+  }
+
+  .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 0.6rem; }
+
+  .footer-col a {
+    text-decoration: none; font-size: 0.88rem;
+    color: rgba(255,255,255,0.5); transition: color 0.2s;
+  }
+
+  .footer-col a:hover { color: rgba(255,255,255,0.85); }
+
+  .footer-bottom { display: flex; justify-content: space-between; align-items: center; font-size: 0.82rem; }
+
+  .footer-tagline { font-family: var(--font-serif); font-style: italic; color: rgba(255,255,255,0.3); }
+
+  .fade-up { opacity: 0; transform: translateY(24px); transition: opacity 0.6s ease, transform 0.6s ease; }
+  .fade-up.visible { opacity: 1; transform: translateY(0); }
+
+  @media (max-width: 900px) {
+    .story-section, .mission-split { grid-template-columns: 1fr; gap: 3rem; }
+    .values-grid, .fleet-grid { grid-template-columns: 1fr; }
+    .partner-callout { grid-template-columns: 1fr; margin: 0 2rem 3rem; }
+    .footer-top { grid-template-columns: 1fr 1fr; gap: 2rem; }
+    .section { padding: 4rem 2rem; }
+    .story-section { padding: 4rem 2rem; }
+    .page-header-inner { padding: 4rem 2rem 0; }
+    .footer-bottom { flex-direction: column; gap: 0.5rem; text-align: center; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="../index.html" class="nav-logo">
+    <div class="nav-logo-mark">
+      <svg viewBox="0 0 24 24"><path d="M12 2L2 7v10l10 5 10-5V7L12 2zm0 2.3l7.5 3.7-7.5 3.7L4.5 8 12 4.3zM3.5 9.5l8 3.9v7.8l-8-4V9.5zm9.5 11.7V13.4l8-3.9v7.7l-8 4z"/></svg>
+    </div>
+    <span class="nav-logo-text">Atlas Shipping</span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="../index.html">Home</a></li>
+    <li><a href="../services/index.html">Services</a></li>
+    <li><a href="index.html" class="active">About</a></li>
+    <li><a href="../contact/index.html" class="nav-cta">Contact Us</a></li>
+  </ul>
+</nav>
+
+<div class="page-header">
+  <div class="page-header-bg"></div>
+  <div class="page-header-inner">
+    <div class="label">Our Story</div>
+    <h1>Built to move<br><em>this community</em> forward</h1>
+    <p>Atlas Shipping was founded in Kingsville with one goal: give local businesses and residents the kind of reliable, honest delivery service they actually deserve.</p>
+  </div>
+</div>
+
+<!-- STORY -->
+<div class="story-section fade-up">
+  <div class="story-text">
+    <div class="section-label">Who We Are</div>
+    <h2 class="section-heading">More than a<br><em>delivery company</em></h2>
+    <p>Atlas Shipping is a locally owned and operated shipping company based in Main Town Kingsville. We run our own trucks, employ our own drivers, and take full responsibility for every shipment that passes through our hands.</p>
+    <p>We serve businesses first. Our routes are built around commercial clients who need freight moved on a schedule they can rely on. But we also serve the homes and families of Kingsville and Demotte, because this is our community too.</p>
+    <p>When long-distance or time-sensitive air freight is needed, we partner with Trevor Air Cargo, whose experienced pilots extend our reach beyond what any truck can do alone.</p>
+  </div>
+  <div class="story-visual">
+    <div class="story-quote">It's not just shipping, it's Atlas Shipping</div>
+    <div class="story-tag">Kingsville &amp; Demotte</div>
+  </div>
+</div>
+
+<!-- MISSION -->
+<section class="section mission-section fade-up" id="mission">
+  <div class="section-label">Our Mission</div>
+  <h2 class="section-heading" style="margin-bottom:3rem">Why we exist, and<br><em>what drives us</em></h2>
+
+  <div class="mission-split">
+    <div>
+      <div class="mission-block">
+        <div class="mission-icon">
+          <svg viewBox="0 0 24 24"><path d="M12 2L4.5 20.29l.71.71L12 18l6.79 3 .71-.71z"/></svg>
+        </div>
+        <h3>Our Purpose</h3>
+        <p>To be the most dependable shipping company that Kingsville and Demotte have ever had. We exist to make logistics simpler, more reliable, and more human for every business and household we serve.</p>
+      </div>
+      <div class="mission-block">
+        <div class="mission-icon">
+          <svg viewBox="0 0 24 24"><path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5z"/></svg>
+        </div>
+        <h3>Who We Serve</h3>
+        <p>Primarily businesses, from retail operations to warehouses that need daily freight runs. We also serve residential customers who need reliable home delivery. If you are in Kingsville or Demotte, we are your carrier.</p>
+      </div>
+    </div>
+
+    <div>
+      <div class="mission-block">
+        <div class="mission-icon">
+          <svg viewBox="0 0 24 24"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm0 4l5 2.18V11c0 3.5-2.33 6.79-5 7.93-2.67-1.14-5-4.43-5-7.93V7.18L12 5z"/></svg>
+        </div>
+        <h3>Our Standard</h3>
+        <p>On-time delivery is not a goal, it is a baseline. We hold ourselves to a standard that says your shipment should arrive when and where it is supposed to, every single time. No excuses, no runaround.</p>
+      </div>
+      <div class="mission-block">
+        <div class="mission-icon">
+          <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 14H9V8h2v8zm4 0h-2V8h2v8z"/></svg>
+        </div>
+        <h3>Our Commitment</h3>
+        <p>This is a long-term relationship, not a transaction. We are invested in the growth of the businesses we serve and the communities we call home. Atlas is here to stay.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- VALUES -->
+<section class="section values-section fade-up" id="values">
+  <div class="section-label">What We Stand For</div>
+  <h2 class="section-heading">The principles that<br><em>guide everything we do</em></h2>
+
+  <div class="values-grid">
+    <div class="value-card">
+      <div class="value-num">01</div>
+      <h3>Honesty Over Everything</h3>
+      <p>We do not overpromise. If there is a problem with a delivery, we tell you. No hiding, no spin. Transparency is how we build trust that actually lasts.</p>
+    </div>
+    <div class="value-card">
+      <div class="value-num">02</div>
+      <h3>Local Accountability</h3>
+      <p>We are not a national chain with a call center somewhere else. When something goes wrong, you can reach someone in Kingsville who will fix it. That is the local difference.</p>
+    </div>
+    <div class="value-card">
+      <div class="value-num">03</div>
+      <h3>Owned Infrastructure</h3>
+      <p>We own our trucks and we train our drivers. That means we control the quality of every delivery end-to-end. No third-party handoffs, no mystery about where your freight is.</p>
+    </div>
+    <div class="value-card">
+      <div class="value-num">04</div>
+      <h3>Business Comes First</h3>
+      <p>We are built for commercial clients. Our routes, our scheduling, and our service model are designed around the needs of businesses that depend on logistics to operate.</p>
+    </div>
+    <div class="value-card">
+      <div class="value-num">05</div>
+      <h3>Care for Every Package</h3>
+      <p>Whether it is a pallet of industrial equipment or a single box to someone's front door, it gets handled with the same care. The size of the shipment does not determine the effort we give.</p>
+    </div>
+    <div class="value-card">
+      <div class="value-num">06</div>
+      <h3>Partnership Over Transaction</h3>
+      <p>We want to be your long-term carrier partner, not just the company that shows up once. When you grow, we grow. Your success is directly tied to ours.</p>
+    </div>
+  </div>
+</section>
+
+<!-- FLEET -->
+<section class="section fleet-section fade-up">
+  <div class="section-label">Our Fleet</div>
+  <h2 class="section-heading">The vehicles that<br><em>make it happen</em></h2>
+  <div class="fleet-grid">
+    <div class="fleet-card">
+      <svg viewBox="0 0 24 24"><path d="M18 18.5a1.5 1.5 0 01-1.5-1.5 1.5 1.5 0 011.5-1.5 1.5 1.5 0 011.5 1.5 1.5 1.5 0 01-1.5 1.5m1.5-9l1.96 2.5H17V9.5m-11 9a1.5 1.5 0 01-1.5-1.5A1.5 1.5 0 016 15.5a1.5 1.5 0 011.5 1.5A1.5 1.5 0 016 18.5M20 8h-3V4H3c-1.11 0-2 .89-2 2v11h2a3 3 0 003 3 3 3 0 003-3h4a3 3 0 003 3 3 3 0 003-3h2v-5l-3-4z"/></svg>
+      <h3>Delivery Trucks</h3>
+      <p>Our core residential and business delivery vehicles. Agile, dependable, and right-sized for urban and suburban routes throughout Kingsville and Demotte.</p>
+    </div>
+    <div class="fleet-card">
+      <svg viewBox="0 0 24 24"><path d="M20 8h-3V4H3c-1.1 0-2 .9-2 2v11h2c0 1.66 1.34 3 3 3s3-1.34 3-3h6c0 1.66 1.34 3 3 3s3-1.34 3-3h2v-5l-3-4zm-.5 1.5l1.96 2.5H17V9.5h2.5zM6 18.5c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5zm13.5-1.5c0 .83-.67 1.5-1.5 1.5s-1.5-.67-1.5-1.5.67-1.5 1.5-1.5 1.5.67 1.5 1.5z"/></svg>
+      <h3>Semi Trucks</h3>
+      <p>For heavy freight and bulk commercial shipments. Our semi fleet handles the large loads that keep businesses stocked, supplied, and running on schedule.</p>
+    </div>
+    <div class="fleet-card">
+      <svg viewBox="0 0 24 24"><path d="M21 16v-2l-8-5V3.5c0-.83-.67-1.5-1.5-1.5S10 2.67 10 3.5V9l-8 5v2l8-2.5V19l-2 1.5V22l3.5-1 3.5 1v-1.5L13 19v-5.5l8 2.5z"/></svg>
+      <h3>Air via Trevor Air Cargo</h3>
+      <p>Extended reach through our air freight partnership. Trevor Air Cargo's pilots handle all aviation operations, giving Atlas clients access to air-speed delivery when ground routes are not fast enough.</p>
+    </div>
+  </div>
+</section>
+
+<!-- PARTNER CALLOUT -->
+<div class="partner-callout fade-up">
+  <div class="partner-icon">
+    <svg viewBox="0 0 24 24"><path d="M21 16v-2l-8-5V3.5c0-.83-.67-1.5-1.5-1.5S10 2.67 10 3.5V9l-8 5v2l8-2.5V19l-2 1.5V22l3.5-1 3.5 1v-1.5L13 19v-5.5l8 2.5z"/></svg>
+  </div>
+  <div>
+    <h3>Trevor Air Cargo - Official Atlas Air Partner</h3>
+    <p>When ground shipping is not enough, Atlas Shipping works alongside Trevor Air Cargo, an airplane carrier operated by experienced cargo pilots. The partnership gives our clients the option to move freight by air when speed and distance demand it, all coordinated through Atlas.</p>
+    <a href="../contact/index.html" class="btn-primary">Ask About Air Freight</a>
+  </div>
+</div>
+
+<footer>
+  <div class="footer-top">
+    <div class="footer-brand">
+      <a href="../index.html" class="nav-logo">
+        <div class="nav-logo-mark">
+          <svg viewBox="0 0 24 24"><path d="M12 2L2 7v10l10 5 10-5V7L12 2zm0 2.3l7.5 3.7-7.5 3.7L4.5 8 12 4.3zM3.5 9.5l8 3.9v7.8l-8-4V9.5zm9.5 11.7V13.4l8-3.9v7.7l-8 4z"/></svg>
+        </div>
+        <span class="nav-logo-text">Atlas Shipping</span>
+      </a>
+      <p>Delivering across Kingsville and Demotte. Locally owned, locally operated, and proud of it.</p>
+    </div>
+    <div class="footer-col">
+      <h5>Company</h5>
+      <ul>
+        <li><a href="index.html">About Us</a></li>
+        <li><a href="index.html#mission">Our Mission</a></li>
+        <li><a href="index.html#values">What We Stand For</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h5>Services</h5>
+      <ul>
+        <li><a href="../services/index.html">Business Freight</a></li>
+        <li><a href="../services/index.html">Residential</a></li>
+        <li><a href="../services/index.html">Air Cargo</a></li>
+        <li><a href="../services/index.html">Semi Trucks</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h5>Get In Touch</h5>
+      <ul>
+        <li><a href="../contact/index.html">Contact Us</a></li>
+        <li><a href="../contact/index.html">Get a Quote</a></li>
+        <li><a href="../contact/index.html">Locations</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>&copy; 2025 Atlas Shipping. All rights reserved.</span>
+    <span class="footer-tagline">"It's not just shipping, it's Atlas Shipping"</span>
+  </div>
+</footer>
+
+<script>
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>

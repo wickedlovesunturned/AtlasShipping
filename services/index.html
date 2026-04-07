@@ -1,0 +1,554 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Services - Atlas Shipping</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --red: #eb2121;
+    --red-dark: #c01a1a;
+    --red-light: #fdf0f0;
+    --red-mid: #f5d0d0;
+    --charcoal: #1c1c1c;
+    --ink: #2e2e2e;
+    --slate: #5a5a5a;
+    --mist: #f7f5f2;
+    --warm-white: #fdfcfa;
+    --border: #e8e4df;
+    --font-sans: 'DM Sans', sans-serif;
+    --font-serif: 'DM Serif Display', serif;
+  }
+
+  html { scroll-behavior: smooth; }
+  body { font-family: var(--font-sans); background: var(--warm-white); color: var(--ink); overflow-x: hidden; }
+
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    background: rgba(253,252,250,0.92); backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+    padding: 0 2rem; height: 68px;
+    display: flex; align-items: center; justify-content: space-between;
+  }
+
+  .nav-logo { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+
+  .nav-logo-mark {
+    width: 36px; height: 36px; background: var(--red); border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+  }
+
+  .nav-logo-mark svg { width: 20px; height: 20px; fill: white; }
+  .nav-logo-text { font-family: var(--font-serif); font-size: 1.25rem; color: var(--charcoal); letter-spacing: -0.01em; }
+
+  .nav-links { display: flex; align-items: center; gap: 2rem; list-style: none; }
+  .nav-links a { text-decoration: none; font-size: 0.9rem; font-weight: 500; color: var(--slate); transition: color 0.2s; }
+  .nav-links a:hover { color: var(--charcoal); }
+  .nav-links a.active { color: var(--red); }
+  .nav-cta { background: var(--red); color: white !important; padding: 0.5rem 1.25rem; border-radius: 6px; transition: background 0.2s !important; }
+  .nav-cta:hover { background: var(--red-dark) !important; color: white !important; }
+
+  .page-header {
+    padding-top: 68px;
+    background: var(--mist);
+    padding-bottom: 5rem;
+    position: relative; overflow: hidden;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .page-header-inner { max-width: 800px; padding: 5rem 4rem 0; }
+
+  .page-header .label {
+    font-size: 0.78rem; font-weight: 600; letter-spacing: 0.1em;
+    text-transform: uppercase; color: var(--red); margin-bottom: 1rem;
+  }
+
+  .page-header h1 {
+    font-family: var(--font-serif);
+    font-size: clamp(2.5rem, 5vw, 3.75rem);
+    line-height: 1.1; color: var(--charcoal);
+    letter-spacing: -0.02em; margin-bottom: 1.25rem;
+  }
+
+  .page-header h1 em { font-style: italic; color: var(--red); }
+  .page-header p { font-size: 1.05rem; line-height: 1.75; color: var(--slate); max-width: 540px; }
+
+  .section { padding: 6rem 4rem; }
+  .section-label { font-size: 0.78rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--red); margin-bottom: 1rem; }
+
+  .section-heading {
+    font-family: var(--font-serif); font-size: clamp(2rem, 3vw, 2.75rem);
+    line-height: 1.15; color: var(--charcoal);
+    letter-spacing: -0.02em; margin-bottom: 1.25rem;
+  }
+
+  .section-heading em { font-style: italic; color: var(--red); }
+
+  /* SERVICE DETAIL BLOCKS */
+  .service-detail {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 0; border: 1px solid var(--border);
+    border-radius: 20px; overflow: hidden;
+    margin-bottom: 2rem;
+    background: var(--warm-white);
+    transition: transform 0.25s;
+  }
+
+  .service-detail:hover { transform: translateY(-3px); }
+
+  .service-detail.reverse { direction: rtl; }
+  .service-detail.reverse > * { direction: ltr; }
+
+  .service-content {
+    padding: 3rem;
+    display: flex; flex-direction: column; justify-content: center;
+  }
+
+  .service-tag {
+    display: inline-flex; align-items: center; gap: 6px;
+    background: var(--red-light); border: 1px solid var(--red-mid);
+    color: var(--red-dark); font-size: 0.75rem; font-weight: 600;
+    letter-spacing: 0.06em; text-transform: uppercase;
+    padding: 0.35rem 0.85rem; border-radius: 100px;
+    margin-bottom: 1.25rem; width: fit-content;
+  }
+
+  .service-content h2 {
+    font-family: var(--font-serif);
+    font-size: 1.7rem; color: var(--charcoal);
+    line-height: 1.2; margin-bottom: 0.85rem;
+    letter-spacing: -0.01em;
+  }
+
+  .service-content p {
+    font-size: 0.93rem; line-height: 1.8;
+    color: var(--slate); margin-bottom: 1.25rem;
+  }
+
+  .service-features {
+    list-style: none; display: flex; flex-direction: column; gap: 0.5rem;
+  }
+
+  .service-features li {
+    font-size: 0.88rem; color: var(--slate);
+    display: flex; align-items: center; gap: 8px;
+  }
+
+  .service-features li::before {
+    content: '';
+    width: 6px; height: 6px;
+    background: var(--red); border-radius: 50%;
+    flex-shrink: 0;
+  }
+
+  .service-visual {
+    background: var(--mist);
+    display: flex; align-items: center; justify-content: center;
+    padding: 3rem; min-height: 280px;
+  }
+
+  .service-visual svg { width: 120px; height: 120px; fill: none; }
+
+  /* COMPARISON TABLE */
+  .comparison-section { background: var(--mist); }
+
+  .compare-table {
+    width: 100%; border-collapse: collapse;
+    margin-top: 2.5rem; font-size: 0.9rem;
+    border-radius: 16px; overflow: hidden;
+    border: 1px solid var(--border);
+  }
+
+  .compare-table thead { background: var(--charcoal); }
+
+  .compare-table thead th {
+    padding: 1rem 1.25rem; text-align: left;
+    font-weight: 500; font-size: 0.85rem;
+    letter-spacing: 0.02em; color: rgba(255,255,255,0.7);
+  }
+
+  .compare-table thead th:first-child { color: white; }
+
+  .compare-table tbody tr { border-bottom: 1px solid var(--border); }
+  .compare-table tbody tr:last-child { border-bottom: none; }
+  .compare-table tbody tr:nth-child(even) { background: rgba(247,245,242,0.5); }
+
+  .compare-table td { padding: 0.9rem 1.25rem; color: var(--slate); vertical-align: middle; }
+  .compare-table td:first-child { font-weight: 500; color: var(--charcoal); }
+
+  .check { color: var(--red); font-size: 1.1rem; }
+  .dash { color: #ccc; }
+
+  /* AIR PARTNER BANNER */
+  .air-banner {
+    background: var(--charcoal);
+    padding: 5rem 4rem;
+    position: relative; overflow: hidden;
+  }
+
+  .air-banner-inner {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 4rem; align-items: center; position: relative; z-index: 1;
+  }
+
+  .air-banner h2 {
+    font-family: var(--font-serif);
+    font-size: clamp(1.8rem, 3vw, 2.5rem);
+    color: white; line-height: 1.15;
+    letter-spacing: -0.02em; margin-bottom: 1rem;
+  }
+
+  .air-banner h2 em { font-style: italic; color: #f47272; }
+
+  .air-banner p { color: rgba(255,255,255,0.65); line-height: 1.75; font-size: 0.95rem; }
+
+  .air-steps {
+    display: flex; flex-direction: column; gap: 1.25rem;
+  }
+
+  .air-step {
+    display: flex; align-items: flex-start; gap: 1rem;
+  }
+
+  .air-step-num {
+    width: 36px; height: 36px;
+    background: var(--red); border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-weight: 600; font-size: 0.82rem;
+    color: white; flex-shrink: 0;
+  }
+
+  .air-step-text h4 { color: white; font-weight: 500; font-size: 0.95rem; margin-bottom: 0.2rem; }
+  .air-step-text p { color: rgba(255,255,255,0.55); font-size: 0.85rem; line-height: 1.6; }
+
+  .air-bg-plane {
+    position: absolute; right: -60px; top: 50%;
+    transform: translateY(-50%);
+    opacity: 0.04; font-size: 22rem;
+    pointer-events: none; user-select: none;
+  }
+
+  /* CTA */
+  .cta-section { background: var(--red-light); border-top: 1px solid var(--red-mid); text-align: center; padding: 6rem 4rem; }
+
+  .btn-primary {
+    background: var(--red); color: white;
+    text-decoration: none; padding: 0.85rem 1.75rem;
+    border-radius: 8px; font-weight: 500; font-size: 0.95rem;
+    transition: background 0.2s, transform 0.15s; display: inline-block;
+  }
+
+  .btn-primary:hover { background: var(--red-dark); transform: translateY(-1px); }
+
+  .btn-secondary {
+    background: transparent; color: var(--charcoal);
+    text-decoration: none; padding: 0.85rem 1.75rem;
+    border-radius: 8px; font-weight: 500; font-size: 0.95rem;
+    border: 1.5px solid #c9c4be;
+    transition: border-color 0.2s, transform 0.15s; display: inline-block;
+  }
+
+  .btn-secondary:hover { border-color: #9a9490; transform: translateY(-1px); }
+
+  /* FOOTER */
+  footer { background: var(--charcoal); padding: 4rem 4rem 2rem; color: rgba(255,255,255,0.5); }
+
+  .footer-top {
+    display: grid; grid-template-columns: 2fr 1fr 1fr 1fr;
+    gap: 3rem; padding-bottom: 3rem;
+    border-bottom: 1px solid rgba(255,255,255,0.1); margin-bottom: 2rem;
+  }
+
+  .footer-brand p { font-size: 0.88rem; line-height: 1.7; margin-top: 1rem; max-width: 280px; color: rgba(255,255,255,0.4); }
+  .footer-brand .nav-logo-text { color: white; }
+  .footer-col h5 { font-size: 0.78rem; letter-spacing: 0.08em; text-transform: uppercase; font-weight: 600; color: rgba(255,255,255,0.5); margin-bottom: 1rem; }
+  .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 0.6rem; }
+  .footer-col a { text-decoration: none; font-size: 0.88rem; color: rgba(255,255,255,0.5); transition: color 0.2s; }
+  .footer-col a:hover { color: rgba(255,255,255,0.85); }
+  .footer-bottom { display: flex; justify-content: space-between; align-items: center; font-size: 0.82rem; }
+  .footer-tagline { font-family: var(--font-serif); font-style: italic; color: rgba(255,255,255,0.3); }
+
+  .fade-up { opacity: 0; transform: translateY(24px); transition: opacity 0.6s ease, transform 0.6s ease; }
+  .fade-up.visible { opacity: 1; transform: translateY(0); }
+
+  @media (max-width: 900px) {
+    .service-detail, .service-detail.reverse { grid-template-columns: 1fr; direction: ltr; }
+    .air-banner-inner { grid-template-columns: 1fr; }
+    .footer-top { grid-template-columns: 1fr 1fr; gap: 2rem; }
+    .section { padding: 4rem 2rem; }
+    .page-header-inner { padding: 4rem 2rem 0; }
+    .air-banner { padding: 4rem 2rem; }
+    .cta-section { padding: 4rem 2rem; }
+    .footer-bottom { flex-direction: column; gap: 0.5rem; text-align: center; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="../index.html" class="nav-logo">
+    <div class="nav-logo-mark">
+      <svg viewBox="0 0 24 24"><path d="M12 2L2 7v10l10 5 10-5V7L12 2zm0 2.3l7.5 3.7-7.5 3.7L4.5 8 12 4.3zM3.5 9.5l8 3.9v7.8l-8-4V9.5zm9.5 11.7V13.4l8-3.9v7.7l-8 4z"/></svg>
+    </div>
+    <span class="nav-logo-text">Atlas Shipping</span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="../index.html">Home</a></li>
+    <li><a href="index.html" class="active">Services</a></li>
+    <li><a href="../about/index.html">About</a></li>
+    <li><a href="../contact/index.html" class="nav-cta">Contact Us</a></li>
+  </ul>
+</nav>
+
+<div class="page-header">
+  <div class="page-header-inner">
+    <div class="label">What We Offer</div>
+    <h1>Services built for<br><em>real businesses</em></h1>
+    <p>Ground delivery, semi freight, residential drop-off, and air cargo through our partner Trevor Air. Everything your shipping operation needs, right here.</p>
+  </div>
+</div>
+
+<!-- SERVICE DETAILS -->
+<section class="section fade-up">
+  <div class="section-label">Ground Services</div>
+  <h2 class="section-heading">Everything on four wheels,<br><em>handled in-house</em></h2>
+
+  <div class="service-detail">
+    <div class="service-content">
+      <div class="service-tag">Core Service</div>
+      <h2>Business Freight Delivery</h2>
+      <p>Our flagship service. Atlas runs dedicated commercial delivery routes throughout Kingsville and Demotte, moving goods between businesses on a schedule that keeps operations running smoothly.</p>
+      <p>From supply deliveries to outbound shipments, we handle the full range of B2B freight needs with professionalism and punctuality.</p>
+      <ul class="service-features">
+        <li>Regular scheduled routes through both service cities</li>
+        <li>Pickup from your business location or warehouse dock</li>
+        <li>Suitable for pallets, bulk goods, and commercial packages</li>
+        <li>Consistent driver relationships with your team</li>
+      </ul>
+    </div>
+    <div class="service-visual">
+      <svg viewBox="0 0 140 140" xmlns="http://www.w3.org/2000/svg">
+        <rect x="10" y="55" width="90" height="55" rx="6" fill="#1c1c1c"/>
+        <rect x="10" y="55" width="90" height="6" rx="3" fill="#eb2121"/>
+        <rect x="100" y="65" width="35" height="45" rx="5" fill="#2a2a2a"/>
+        <rect x="103" y="70" width="28" height="28" rx="3" fill="#b8ddf0"/>
+        <circle cx="40" cy="115" r="13" fill="#333"/><circle cx="40" cy="115" r="8" fill="#555"/>
+        <circle cx="80" cy="115" r="13" fill="#333"/><circle cx="80" cy="115" r="8" fill="#555"/>
+        <circle cx="118" cy="115" r="13" fill="#333"/><circle cx="118" cy="115" r="8" fill="#555"/>
+        <rect x="18" y="66" width="55" height="30" rx="4" fill="#eb2121"/>
+        <text x="46" y="87" font-family="serif" font-style="italic" font-size="10" fill="white" text-anchor="middle">Atlas</text>
+      </svg>
+    </div>
+  </div>
+
+  <div class="service-detail reverse">
+    <div class="service-content">
+      <div class="service-tag">Residential</div>
+      <h2>Home Delivery</h2>
+      <p>Not everything ships to a dock. Atlas Shipping delivers to homes throughout Kingsville and Demotte with the same care we give every commercial client. Your residents and customers get real delivery service, not a phone-tag nightmare.</p>
+      <ul class="service-features">
+        <li>Door-to-door delivery throughout our service area</li>
+        <li>Careful handling for personal and household items</li>
+        <li>Scheduled delivery windows when available</li>
+        <li>Same driver reliability as our commercial routes</li>
+      </ul>
+    </div>
+    <div class="service-visual">
+      <svg viewBox="0 0 140 140" xmlns="http://www.w3.org/2000/svg">
+        <polygon points="70,20 20,65 120,65" fill="#eb2121" opacity="0.15"/>
+        <polygon points="70,25 24,67 116,67" fill="none" stroke="#eb2121" stroke-width="2"/>
+        <rect x="30" y="67" width="80" height="55" rx="4" fill="#1c1c1c"/>
+        <rect x="55" y="87" width="30" height="35" rx="3" fill="#2a2a2a"/>
+        <rect x="60" y="77" width="20" height="14" rx="2" fill="#b8ddf0"/>
+        <rect x="30" y="67" width="80" height="5" rx="2" fill="#eb2121"/>
+        <circle cx="70" cy="97" r="3" fill="#888"/>
+        <rect x="40" y="75" width="18" height="18" rx="2" fill="#333"/>
+      </svg>
+    </div>
+  </div>
+
+  <div class="service-detail">
+    <div class="service-content">
+      <div class="service-tag">Heavy Freight</div>
+      <h2>Semi Truck Shipping</h2>
+      <p>When the load is too large for a delivery truck, our semi fleet steps in. Full-size freight capability for businesses moving large quantities of goods, oversized items, or bulk commercial shipments across our service territory.</p>
+      <ul class="service-features">
+        <li>Full semi-trailer capacity for bulk loads</li>
+        <li>Commercial dock pickups and drop-offs</li>
+        <li>Experienced drivers trained for heavy freight</li>
+        <li>Ideal for manufacturing, supply chain, and retail distribution</li>
+      </ul>
+    </div>
+    <div class="service-visual">
+      <svg viewBox="0 0 160 100" xmlns="http://www.w3.org/2000/svg">
+        <rect x="5" y="25" width="105" height="50" rx="5" fill="#1c1c1c"/>
+        <rect x="5" y="25" width="105" height="5" rx="2" fill="#eb2121"/>
+        <rect x="110" y="32" width="45" height="43" rx="5" fill="#2a2a2a"/>
+        <rect x="113" y="36" width="38" height="26" rx="3" fill="#b8ddf0"/>
+        <rect x="113" y="36" width="19" height="26" rx="3" fill="#a8cde0"/>
+        <rect x="131" y="36" width="1.5" height="26" fill="#2a2a2a"/>
+        <circle cx="35" cy="78" r="13" fill="#2a2a2a"/><circle cx="35" cy="78" r="8" fill="#444"/>
+        <circle cx="72" cy="78" r="13" fill="#2a2a2a"/><circle cx="72" cy="78" r="8" fill="#444"/>
+        <circle cx="135" cy="78" r="13" fill="#2a2a2a"/><circle cx="135" cy="78" r="8" fill="#444"/>
+        <rect x="18" y="35" width="62" height="28" rx="4" fill="#eb2121"/>
+        <text x="49" y="54" font-family="serif" font-style="italic" font-size="11" fill="white" text-anchor="middle">Atlas Shipping</text>
+      </svg>
+    </div>
+  </div>
+</section>
+
+<!-- AIR PARTNER -->
+<section class="air-banner fade-up">
+  <div class="air-bg-plane">✈</div>
+  <div class="air-banner-inner">
+    <div>
+      <div class="section-label" style="color:#f5a0a0">Air Freight</div>
+      <h2>When ground cannot get there fast enough,<br><em>we fly</em></h2>
+      <p style="margin-bottom:1.5rem">Atlas Shipping has an official partnership with Trevor Air Cargo, an airplane carrier operated by dedicated cargo pilots. When you need shipments to move faster or farther than our ground routes allow, we coordinate air freight through Trevor seamlessly.</p>
+      <a href="../contact/index.html" style="background:var(--red);color:white;text-decoration:none;padding:0.85rem 1.75rem;border-radius:8px;font-weight:500;font-size:0.95rem;display:inline-block;transition:background 0.2s">Ask About Air Freight</a>
+    </div>
+    <div class="air-steps">
+      <div class="air-step">
+        <div class="air-step-num">1</div>
+        <div class="air-step-text">
+          <h4>You Contact Atlas</h4>
+          <p>Tell us about your air freight need. We assess the shipment and coordinate directly with Trevor Air Cargo on your behalf.</p>
+        </div>
+      </div>
+      <div class="air-step">
+        <div class="air-step-num">2</div>
+        <div class="air-step-text">
+          <h4>We Hand Off to Trevor Air</h4>
+          <p>Trevor Air Cargo's pilots take over for the air segment. Their team handles all aviation operations with professional cargo handling.</p>
+        </div>
+      </div>
+      <div class="air-step">
+        <div class="air-step-num">3</div>
+        <div class="air-step-text">
+          <h4>Delivered</h4>
+          <p>Your freight arrives at its destination. Fast, reliable, and coordinated through one point of contact at Atlas Shipping.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- COMPARISON -->
+<section class="section comparison-section fade-up">
+  <div class="section-label">Quick Reference</div>
+  <h2 class="section-heading">Choose the right<br><em>service for your need</em></h2>
+  <table class="compare-table">
+    <thead>
+      <tr>
+        <th>Service</th>
+        <th>Best For</th>
+        <th>Kingsville</th>
+        <th>Demotte</th>
+        <th>Beyond Region</th>
+        <th>Large Loads</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Business Freight</td>
+        <td>B2B deliveries, regular routes</td>
+        <td class="check">&#10003;</td>
+        <td class="check">&#10003;</td>
+        <td class="dash">&#8212;</td>
+        <td class="check">&#10003;</td>
+      </tr>
+      <tr>
+        <td>Residential Delivery</td>
+        <td>Home drop-off, personal items</td>
+        <td class="check">&#10003;</td>
+        <td class="check">&#10003;</td>
+        <td class="dash">&#8212;</td>
+        <td class="dash">&#8212;</td>
+      </tr>
+      <tr>
+        <td>Semi Truck Freight</td>
+        <td>Bulk, oversized, heavy cargo</td>
+        <td class="check">&#10003;</td>
+        <td class="check">&#10003;</td>
+        <td class="dash">&#8212;</td>
+        <td class="check">&#10003;</td>
+      </tr>
+      <tr>
+        <td>Air Cargo (Trevor Air)</td>
+        <td>Time-sensitive, long distance</td>
+        <td class="check">&#10003;</td>
+        <td class="check">&#10003;</td>
+        <td class="check">&#10003;</td>
+        <td class="check">&#10003;</td>
+      </tr>
+    </tbody>
+  </table>
+</section>
+
+<!-- CTA -->
+<section class="cta-section fade-up">
+  <div class="section-label" style="color:var(--red-dark)">Let's Get Moving</div>
+  <h2 class="section-heading" style="max-width:550px;margin:0 auto 1rem">Not sure which service fits?<br><em>We'll figure it out together</em></h2>
+  <p style="color:var(--slate);max-width:480px;margin:0 auto 2.5rem;font-size:0.95rem;line-height:1.75;text-align:center">Reach out and tell us what you need to move, where it needs to go, and when. We will match you with the right service and get you a quote.</p>
+  <div style="display:flex;gap:1rem;justify-content:center;flex-wrap:wrap">
+    <a href="../contact/index.html" class="btn-primary">Get a Quote</a>
+    <a href="../about/index.html" class="btn-secondary">Learn About Us</a>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-top">
+    <div class="footer-brand">
+      <a href="../index.html" class="nav-logo">
+        <div class="nav-logo-mark">
+          <svg viewBox="0 0 24 24"><path d="M12 2L2 7v10l10 5 10-5V7L12 2zm0 2.3l7.5 3.7-7.5 3.7L4.5 8 12 4.3zM3.5 9.5l8 3.9v7.8l-8-4V9.5zm9.5 11.7V13.4l8-3.9v7.7l-8 4z"/></svg>
+        </div>
+        <span class="nav-logo-text">Atlas Shipping</span>
+      </a>
+      <p>Delivering across Kingsville and Demotte. Locally owned, locally operated, and proud of it.</p>
+    </div>
+    <div class="footer-col">
+      <h5>Company</h5>
+      <ul>
+        <li><a href="../about/index.html">About Us</a></li>
+        <li><a href="../about/index.html#mission">Our Mission</a></li>
+        <li><a href="../about/index.html#values">What We Stand For</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h5>Services</h5>
+      <ul>
+        <li><a href="index.html">Business Freight</a></li>
+        <li><a href="index.html">Residential</a></li>
+        <li><a href="index.html">Air Cargo</a></li>
+        <li><a href="index.html">Semi Trucks</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h5>Get In Touch</h5>
+      <ul>
+        <li><a href="../contact/index.html">Contact Us</a></li>
+        <li><a href="../contact/index.html">Get a Quote</a></li>
+        <li><a href="../contact/index.html">Locations</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>&copy; 2025 Atlas Shipping. All rights reserved.</span>
+    <span class="footer-tagline">"It's not just shipping, it's Atlas Shipping"</span>
+  </div>
+</footer>
+
+<script>
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>
